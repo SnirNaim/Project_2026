@@ -124,7 +124,6 @@ body {
     display: none;
     padding: 2.5rem;
     min-height: calc(100vh - 4rem);
-    animation: fadeIn 0.3s ease forwards;
 }
 
 .view.active {
@@ -498,12 +497,14 @@ input::placeholder {
         padding: 0.8rem;
         position: fixed;
         bottom: 0;
+        top: auto;
         left: 0;
-        z-index: 100;
+        right: 0;
+        z-index: 1000;
         border-radius: 16px 16px 0 0;
         border-top: 1px solid var(--glass-border);
         border-bottom: none;
-        box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
     }
 
     .logo {
@@ -540,6 +541,12 @@ input::placeholder {
         box-shadow: none;
         background: transparent;
         min-height: auto;
+        opacity: 1 !important;
+        display: none;
+    }
+
+    .view.active {
+        display: block !important;
     }
     
     .view-header h2 {
