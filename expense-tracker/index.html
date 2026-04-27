@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruman's Savings</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <!-- Professional theme removes background blobs -->
+    </div>
+
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="glass-nav">
+            <h1 class="logo">Fruman's <span>Savings</span></h1>
+            <ul class="nav-links">
+                <li><button class="nav-btn active" data-target="dashboard-view">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span>Dashboard</span>
+                </button></li>
+                <li><button class="nav-btn" data-target="add-view">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>Add Expense</span>
+                </button></li>
+                <li><button class="nav-btn" data-target="yearly-view">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                    <span>Archive</span>
+                </button></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            
+            <!-- Dashboard View -->
+            <section id="dashboard-view" class="view active glass-panel">
+                <header class="view-header">
+                    <h2>Dashboard <span id="current-month-display" class="badge">May 2026</span></h2>
+                    <button id="archive-month-btn" class="btn btn-outline">Archive Month</button>
+                </header>
+
+                <div class="summary-cards">
+                    <div class="card glass-card highlight-card">
+                        <h3>Total Spent</h3>
+                        <p id="total-spent" class="amount">₪0.00</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="glass-card categories-card">
+                        <h3>Spending by Category</h3>
+                        <div id="category-bars" class="category-bars-container">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <div class="glass-card recent-card">
+                        <h3>Recent Transactions</h3>
+                        <ul id="recent-transactions" class="transaction-list">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add Expense View -->
+            <section id="add-view" class="view glass-panel hidden">
+                <header class="view-header">
+                    <h2>Add Expense</h2>
+                </header>
+                <form id="expense-form" class="form-container">
+                    <div class="form-group">
+                        <label for="amount">Amount (₪)</label>
+                        <input type="number" id="amount" step="0.01" min="0.01" placeholder="0.00" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" required>
+                            <!-- Populated by JS -->
+                        </select>
+                    </div>
+
+                    <div class="form-group hidden" id="custom-category-group">
+                        <label for="custom-category">New Category Name</label>
+                        <input type="text" id="custom-category" placeholder="e.g. Subscriptions">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="note">Note (Optional)</label>
+                        <input type="text" id="note" placeholder="What was this for?">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">Add Transaction</button>
+                </form>
+            </section>
+
+            <!-- Yearly Overview View -->
+            <section id="yearly-view" class="view glass-panel hidden">
+                <header class="view-header">
+                    <h2>Yearly Archives</h2>
+                    <button id="wipe-archives-btn" class="btn btn-outline btn-danger">Wipe Archives</button>
+                </header>
+                <div id="archives-container" class="archives-list">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="toast hidden">
+        <span id="notification-msg">Success!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
