@@ -243,6 +243,8 @@ body {
     font-size: 3rem;
     font-weight: 700;
     color: var(--text-primary);
+    overflow-wrap: break-word;
+    word-break: break-all;
 }
 
 .dashboard-grid {
@@ -532,21 +534,26 @@ input::placeholder {
     }
 
     .view {
-        padding: 1.5rem;
+        padding: 1rem;
         border-radius: 0;
         border: none;
         box-shadow: none;
         background: transparent;
+        min-height: auto;
+    }
+    
+    .view-header h2 {
+        font-size: 1.4rem;
+        flex-wrap: wrap;
+    }
+
+    .highlight-card .amount {
+        font-size: 2.2rem;
     }
     
     .view-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .view-header h2 {
-        width: 100%;
-        justify-content: space-between;
+        gap: 0.8rem;
     }
 }
