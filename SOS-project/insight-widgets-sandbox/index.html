@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoS Insight — Engineering Console</title>
+    <meta name="description" content="SoS Insight Widget Pack — Next-generation AI infrastructure monitoring console">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Orbitron:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Background Effects Layer -->
+    <div class="bg-effects">
+        <canvas id="particle-canvas"></canvas>
+        <div class="scanline-overlay"></div>
+    </div>
+
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1 class="logo">SoS <span class="logo-accent">Insight</span></h1>
+                <p class="subtitle">Infrastructure Monitoring Console v3.2.1</p>
+            </div>
+            <div class="header-right">
+                <div class="system-clock" id="system-clock">00:00:00 UTC</div>
+                <div class="system-status" id="system-status" data-state="nominal">
+                    <span class="status-indicator"></span>
+                    <span class="status-text" id="status-text">ALL SYSTEMS NOMINAL</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="widget-grid">
+
+            <!-- Widget 1: Neural Core Processing -->
+            <section class="widget widget--primary" id="widget-core">
+                <div class="widget__header">
+                    <div class="widget__title-group">
+                        <h2 class="widget__title">Neural Core</h2>
+                        <span class="widget__badge">LIVE</span>
+                    </div>
+                    <span class="widget__icon">⎈</span>
+                </div>
+                <div class="widget__body core-processing">
+                    <div class="reactor-core">
+                        <svg class="ring-svg" viewBox="0 0 200 200">
+                            <defs>
+                                <filter id="glow-cyan-soft">
+                                    <feGaussianBlur stdDeviation="2" result="blur" />
+                                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                                </filter>
+                                <filter id="glow-magenta">
+                                    <feGaussianBlur stdDeviation="3" result="blur" />
+                                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                                </filter>
+                            </defs>
+                            <circle class="ring ring--outer-track" cx="100" cy="100" r="90" />
+                            <circle class="ring ring--mid-track" cx="100" cy="100" r="72" />
+                            <circle class="ring ring--inner-track" cx="100" cy="100" r="54" />
+                            <circle class="ring ring--outer" cx="100" cy="100" r="90" id="ring-outer" />
+                            <circle class="ring ring--mid" cx="100" cy="100" r="72" id="ring-mid" />
+                            <circle class="ring ring--inner" cx="100" cy="100" r="54" id="ring-inner" />
+                        </svg>
+                        <div class="core-center">
+                            <span class="core-value" id="core-compute-val">87</span>
+                            <span class="core-unit">%</span>
+                            <span class="core-label">COMPUTE</span>
+                        </div>
+                    </div>
+                    <div class="data-readouts">
+                        <div class="readout">
+                            <span class="readout__label">Active Threads</span>
+                            <span class="readout__value" id="thread-count">1,024</span>
+                        </div>
+                        <div class="readout-divider"></div>
+                        <div class="readout">
+                            <span class="readout__label">Avg Latency</span>
+                            <span class="readout__value" id="latency-val">12ms</span>
+                        </div>
+                        <div class="readout-divider"></div>
+                        <div class="readout">
+                            <span class="readout__label">Uptime</span>
+                            <span class="readout__value" id="uptime-val">99.97%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Widget 2: Token Stream Velocity -->
+            <section class="widget" id="widget-tokens">
+                <div class="widget__header">
+                    <div class="widget__title-group">
+                        <h2 class="widget__title">Token Stream</h2>
+                        <span class="widget__badge widget__badge--secondary">60s</span>
+                    </div>
+                    <span class="widget__icon">≈</span>
+                </div>
+                <div class="widget__body token-flow">
+                    <div class="chart-container">
+                        <canvas id="token-chart"></canvas>
+                        <div class="chart-y-axis" id="chart-y-axis"></div>
+                        <div class="chart-x-axis" id="chart-x-axis"></div>
+                    </div>
+                    <div class="flow-stats">
+                        <div class="stat stat--hero">
+                            <span class="stat__value" id="tokens-sec">4,892</span>
+                            <span class="stat__label">tokens/sec</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat__value stat__value--secondary" id="tokens-peak">6,201</span>
+                            <span class="stat__label">peak</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Widget 3: Network Topology -->
+            <section class="widget widget--wide" id="widget-topology">
+                <div class="widget__header">
+                    <div class="widget__title-group">
+                        <h2 class="widget__title">Network Topology</h2>
+                        <span class="widget__badge widget__badge--muted">24 NODES</span>
+                    </div>
+                    <span class="widget__icon">⬡</span>
+                </div>
+                <div class="widget__body node-matrix" id="node-matrix-container">
+                    <canvas id="topology-canvas"></canvas>
+                    <div class="topology-legend">
+                        <div class="legend-item"><span class="legend-dot legend-dot--healthy"></span>Healthy</div>
+                        <div class="legend-item"><span class="legend-dot legend-dot--stressed"></span>Stressed</div>
+                        <div class="legend-item"><span class="legend-dot legend-dot--critical"></span>Critical</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Widget 4: Anomaly Scanner -->
+            <section class="widget" id="widget-scanner">
+                <div class="widget__header">
+                    <div class="widget__title-group">
+                        <h2 class="widget__title">Anomaly Scanner</h2>
+                        <span class="widget__badge widget__badge--alert" id="threat-count">2 ACTIVE</span>
+                    </div>
+                    <span class="widget__icon">◎</span>
+                </div>
+                <div class="widget__body scanner-widget">
+                    <div class="radar-wrap">
+                        <div class="radar-container">
+                            <div class="radar-grid"></div>
+                            <div class="radar-crosshair"></div>
+                            <div class="radar-sweep"></div>
+                            <div class="radar-blips" id="radar-blips"></div>
+                        </div>
+                    </div>
+                    <div class="scan-log" id="scan-log"></div>
+                </div>
+            </section>
+
+            <!-- Widget 5: Operation Log -->
+            <section class="widget" id="widget-oplog">
+                <div class="widget__header">
+                    <div class="widget__title-group">
+                        <h2 class="widget__title">System Operations</h2>
+                        <span class="widget__meta" id="op-count">0 events</span>
+                    </div>
+                    <span class="widget__icon">☰</span>
+                </div>
+                <div class="widget__body operation-log">
+                    <div class="terminal">
+                        <div class="terminal__stream" id="cyber-stream"></div>
+                        <div class="terminal__cursor"></div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
